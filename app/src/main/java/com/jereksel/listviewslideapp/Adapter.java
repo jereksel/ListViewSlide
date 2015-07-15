@@ -1,4 +1,4 @@
-package com.jereksel.slidecheckboxesapp;
+package com.jereksel.listviewslideapp;
 
 import android.view.LayoutInflater;
 import android.view.View;

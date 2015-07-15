@@ -1,4 +1,4 @@
-package com.jereksel.slidecheckboxes;
+package com.jereksel.listviewslideapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

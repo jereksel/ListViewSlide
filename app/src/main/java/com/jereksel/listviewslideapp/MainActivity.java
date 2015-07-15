@@ -1,11 +1,14 @@
-package com.jereksel.slidecheckboxesapp;
+package com.jereksel.listviewslideapp;
 
+import android.app.ActionBar;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.jereksel.slidecheckboxes.CustomListView;
-import com.jereksel.slidecheckboxesapp.R;
+import com.jereksel.listviewslide.SlidableListView;
+import com.jereksel.listviewslide.StateChangeListener;
 
 import java.util.ArrayList;
 
@@ -13,7 +16,9 @@ import java.util.ArrayList;
 public class MainActivity extends ActionBarActivity {
 
     public static MainActivity mainActivity;
-    CustomListView listView;
+    SlidableListView listView;
+
+    private android.support.v7.app.ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +27,37 @@ public class MainActivity extends ActionBarActivity {
 
         mainActivity = this;
 
-        listView = (CustomListView) findViewById(R.id.listview);
+        actionBar = getSupportActionBar();
+
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+
+        listView = (SlidableListView) findViewById(R.id.listview);
 
         ArrayList<String> data = new ArrayList<String>();
 
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 21; i++) {
             data.add("Setting " + i);
         }
 
         listView.setAdapter(new Adapter(this, data));
+
+        listView.setOnStart(new StateChangeListener() {
+            @Override
+            public void onChange() {
+                actionBar.setBackgroundDrawable(new ColorDrawable(Color.GREEN));
+
+
+            }
+        });
+
+        listView.setOnEnd(new StateChangeListener() {
+            @Override
+            public void onChange() {
+                actionBar.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+
+
+            }
+        });
 
     }
 

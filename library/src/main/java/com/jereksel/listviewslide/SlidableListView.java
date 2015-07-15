@@ -1,4 +1,4 @@
-package com.jereksel.slidecheckboxes;
+package com.jereksel.listviewslide;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -12,21 +12,24 @@ import android.widget.ListView;
 
 import java.util.Objects;
 
-public class CustomListView extends ListView {
+public class SlidableListView extends ListView {
 
     View viewBackup;
 
     boolean swipeMode = false;
 
-    public CustomListView(Context context) {
+    StateChangeListener onStart;
+    StateChangeListener onEnd;
+
+    public SlidableListView(Context context) {
         super(context);
     }
 
-    public CustomListView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SlidableListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public CustomListView(Context context, AttributeSet attrs) {
+    public SlidableListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -39,8 +42,6 @@ public class CustomListView extends ListView {
         }
 
         if (event.getActionMasked() == MotionEvent.ACTION_UP) {
-            Log.v("Swipe", "Swipe mode deactivated");
-            swipeMode = false;
             onSwipingEnd();
         }
 
@@ -77,9 +78,7 @@ public class CustomListView extends ListView {
                     if (frame.contains((int) newX, (int) newY) && !Objects.equals(viewBackup, children)) {
 
                         if (!swipeMode) {
-                            Log.v("Swipe", "Swipe mode activated");
                             onSwipingStart();
-                            swipeMode = true;
                         }
 
                         viewBackup = children;
@@ -93,7 +92,6 @@ public class CustomListView extends ListView {
                 }
             }
 
-
         }
 
         if (!swipeMode) {
@@ -105,12 +103,33 @@ public class CustomListView extends ListView {
 
     }
 
+    public void setOnStart(StateChangeListener onStart) {
+        this.onStart = onStart;
+    }
+
+    public void setOnEnd(StateChangeListener onEnd) {
+        this.onEnd = onEnd;
+    }
 
     //Callbacks
     private void onSwipingStart() {
+
+        swipeMode = true;
+
+        if(onStart != null) {
+            onStart.onChange();
+        }
+
     }
 
     private void onSwipingEnd() {
+
+        swipeMode = false;
+
+        if(onEnd != null) {
+            onEnd.onChange();
+        }
+
     }
 
 }

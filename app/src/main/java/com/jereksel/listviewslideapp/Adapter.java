@@ -1,5 +1,6 @@
 package com.jereksel.listviewslideapp;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class Adapter extends ArrayAdapter<String> {
 
-    private final MainActivity context;
+    private final Context context;
     private final List<String> messages;
     private boolean[] checked;
 
@@ -18,7 +19,7 @@ public class Adapter extends ArrayAdapter<String> {
         public CheckBox button;
     }
 
-    public Adapter(MainActivity activity, List<String> messages) {
+    public Adapter(Context activity, List<String> messages) {
         super(activity, R.layout.rowlayout, messages);
         this.context = activity;
         this.messages = messages;
@@ -30,7 +31,7 @@ public class Adapter extends ArrayAdapter<String> {
         View rowView = convertView;
         // reuse views
         if (rowView == null) {
-            LayoutInflater inflater = context.getLayoutInflater();
+            LayoutInflater inflater =  (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
             rowView = inflater.inflate(R.layout.rowlayout, null);
             // configure view holder
             ViewHolder viewHolder = new ViewHolder();

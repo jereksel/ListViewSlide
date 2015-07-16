@@ -1,86 +1,53 @@
 package com.jereksel.listviewslideapp;
 
-import android.app.ActionBar;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import com.jereksel.listviewslide.SlidableListView;
-import com.jereksel.listviewslide.StateChangeListener;
-
-import java.util.ArrayList;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 
-public class MainActivity extends ActionBarActivity {
-
-    public static MainActivity mainActivity;
-    SlidableListView listView;
-
-    private android.support.v7.app.ActionBar actionBar;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        mainActivity = this;
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("One finger mode"));
+        tabLayout.addTab(tabLayout.newTab().setText("Two fingers mode"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        actionBar = getSupportActionBar();
-
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
-
-        listView = (SlidableListView) findViewById(R.id.listview);
-
-        ArrayList<String> data = new ArrayList<String>();
-
-        for (int i = 0; i < 21; i++) {
-            data.add("Setting " + i);
-        }
-
-        listView.setAdapter(new Adapter(this, data));
-
-        listView.setOnStart(new StateChangeListener() {
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final TabsPagerAdapter adapter = new TabsPagerAdapter
+                (getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onChange() {
-                actionBar.setBackgroundDrawable(new ColorDrawable(Color.GREEN));
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
-
-        listView.setOnEnd(new StateChangeListener() {
-            @Override
-            public void onChange() {
-                actionBar.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
-
-
-            }
-        });
-
     }
-
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+*/
 }

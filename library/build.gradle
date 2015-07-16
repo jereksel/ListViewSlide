@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 21
@@ -24,6 +23,35 @@ android {
     }
 }
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'listviewslide'
+
+    publishedGroupId = 'com.jereksel'
+    libraryName = 'ListViewSlide'
+    artifact = 'listviewslide'
+
+    libraryDescription = 'Choose buttons with Slide'
+
+    siteUrl = 'https://github.com/jereksel/ListViewSlide'
+    gitUrl = 'https://github.com/jereksel/ListViewSlide.git'
+
+    libraryVersion = 'v0.1.3'
+
+    developerId = 'jereksel'
+    developerName = 'Andrzej Ressel'
+    developerEmail = 'jereksel@gmail.com'
+
+    licenseName = 'The MIT License (MIT)'
+    licenseUrl = 'http://opensource.org/licenses/MIT'
+    allLicenses = ["MIT"]
+}
+
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
+/*
 // build a jar with source files
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -46,3 +74,4 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
+*/

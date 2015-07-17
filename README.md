@@ -1,6 +1,6 @@
 # ListViewSlide
 
-[![Maven Status](https://img.shields.io/github/release/jereksel/ListViewSlide.svg?label=JitPack)](https://jitpack.io/#jereksel/ListViewSlide/)
+[ ![Download](https://api.bintray.com/packages/jereksel/maven/ListViewSlide/images/download.svg) ](https://bintray.com/jereksel/maven/ListViewSlide/_latestVersion)
 [![Get it on Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=com.jereksel.listviewslideapp)
 
 

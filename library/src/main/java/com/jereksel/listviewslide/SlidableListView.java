@@ -67,11 +67,13 @@ public class SlidableListView extends ListView {
 
 
         if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            onSwipingEnd();
             viewBackup = null;
         }
 
-        if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+        if (event.getActionMasked() == MotionEvent.ACTION_UP && swipeMode) {
             onSwipingEnd();
+            return true;
         }
 
         float x = event.getX();
@@ -225,22 +227,29 @@ public class SlidableListView extends ListView {
     //Callbacks
     private void onSwipingStart() {
 
-        viewBackup = null;
-        swipeMode = true;
+        if (!swipeMode) {
 
-        if (onStart != null) {
-            onStart.onChange();
+            viewBackup = null;
+            swipeMode = true;
+
+            if (onStart != null) {
+                onStart.onChange();
+            }
+
         }
 
     }
 
     private void onSwipingEnd() {
 
-        viewBackup = null;
-        swipeMode = false;
+        if (swipeMode) {
 
-        if (onEnd != null) {
-            onEnd.onChange();
+            viewBackup = null;
+            swipeMode = false;
+
+            if (onEnd != null) {
+                onEnd.onChange();
+            }
         }
 
     }

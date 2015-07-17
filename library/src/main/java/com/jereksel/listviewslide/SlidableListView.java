@@ -9,26 +9,25 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class SlidableListView extends ListView {
 
     public enum Mode {
         ONE_FINGER,
-        TWO_FINGERS;
+        TWO_FINGERS
     }
 
-    Mode mode = Mode.ONE_FINGER;
+    private Mode mode = Mode.ONE_FINGER;
 
-    View viewBackup;
+    private View viewBackup;
 
     //It will be false by default
-    boolean swipeMode;
+    private boolean swipeMode;
 
-    ArrayList<Class> choosable = new ArrayList<Class>();
+    private ArrayList<Class> choosable = new ArrayList<Class>();
 
-    StateChangeListener onStart;
-    StateChangeListener onEnd;
+    private StateChangeListener onStart;
+    private StateChangeListener onEnd;
 
     public SlidableListView(Context context) {
         super(context);
@@ -106,7 +105,7 @@ public class SlidableListView extends ListView {
                     float newY = y - v.getY();
 
 
-                    if (frame.contains((int) newX, (int) newY) && !Objects.equals(viewBackup, children)) {
+                    if (frame.contains((int) newX, (int) newY) && !children.equals(viewBackup)) {
 
                         if (!swipeMode) {
                             onSwipingStart();
@@ -179,7 +178,7 @@ public class SlidableListView extends ListView {
                         float newX = x - v.getX();
                         float newY = y - v.getY();
 
-                        if (frame.contains((int) newX, (int) newY) && !Objects.equals(viewBackup, children)) {
+                        if (frame.contains((int) newX, (int) newY) && !children.equals(viewBackup)) {
 
                             if (!swipeMode) {
                                 onSwipingStart();
